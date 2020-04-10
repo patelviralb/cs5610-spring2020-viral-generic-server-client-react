@@ -2,7 +2,7 @@ import React from 'react';
 import {Link} from "react-router-dom";
 
 const NavbarComponent = () =>
-    <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
+    <nav className="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
         <Link className="navbar-brand" to={"/wam"}>Home</Link>
         <Link className="navbar-brand" to={"/wam/users"}>Users</Link>
         {/*<button className="navbar-toggler" type="button" data-toggle="collapse"

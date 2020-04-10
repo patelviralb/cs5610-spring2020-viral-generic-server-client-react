@@ -3,6 +3,7 @@ import {connect} from "react-redux";
 import usersService from "../../services/usersService";
 import usersActions from "../../redux/actions/usersActions";
 import Navbar from "../navbar";
+import EachUser from './eachUser'
 
 class UsersComponent extends Component {
     componentDidMount() {
@@ -12,28 +13,21 @@ class UsersComponent extends Component {
     render() {
         return (
             <div>
-                <Navbar/>
-                <div className={"container"}>
-                    <div className={"d-flex justify-content-center m-3"}>
-                        <h2>All Available Users (NUIDs)</h2>
+                <div className={"mb-5"}>
+                    <Navbar/>
+                </div>
+                <div className={"container-fluid mb-5"}>
+                    <div className={"d-flex justify-content-center m-5"}>
+                        <h2 className={"mt-5"}>All Available Users (NUIDs)</h2>
                     </div>
                     <ul className={"list-group"}>
                         <div className={"row"}>
                             {
                                 this.props.allUniqueUsers.map(
-                                    (eachUser, index) => {
-                                        return (
-                                            typeof eachUser === 'string'
-                                            &&
-                                            <div
-                                                className={"col-12 col-md-6 col-lg-4 text-center"}
-                                                key={index}>
-                                                <li className={"list-group-item"}>
-                                                    {eachUser}
-                                                </li>
-                                            </div>
-                                        )
-                                    })
+                                    (eachUser, index) =>
+                                        <EachUser key={index}
+                                                  eachUser={eachUser}/>
+                                )
                             }
                         </div>
                     </ul>
