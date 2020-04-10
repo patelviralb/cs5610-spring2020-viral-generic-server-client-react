@@ -4,7 +4,7 @@ let errorMessage = {
     responseData: {}
 };
 
-export const findAllUsers = () =>
+const findAllUsers = () =>
     fetch(`${API_URL}`).then(response => {
         if (response.ok) {
             return response.json();
