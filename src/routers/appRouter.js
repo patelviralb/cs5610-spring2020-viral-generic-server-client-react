@@ -21,7 +21,7 @@ const AppRouter = () =>
             <Route
                 path="*"
                 render={() =>
-                    <Redirect to="/wam" />
+                    <Redirect to="/wam"/>
                 }
             />
         </Switch>

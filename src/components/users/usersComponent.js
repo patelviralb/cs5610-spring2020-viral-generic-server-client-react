@@ -50,9 +50,9 @@ const dispatchMapper = (dispatch) => {
 
             usersService.findAllUsers().then(users => {
                 const allUsersId = users.map(eachUser => eachUser._nuid);
-                console.log('DEBUG: allUserId', allUsersId);
+                /*console.log('DEBUG: allUserId', allUsersId);*/
                 const allUniqueUsersSet = new Set(allUsersId);
-                console.log('DEBUG: allUniqueUsersSet', allUniqueUsersSet);
+                /*console.log('DEBUG: allUniqueUsersSet', allUniqueUsersSet);*/
                 allUsers = [
                     ...allUniqueUsersSet
                 ];
