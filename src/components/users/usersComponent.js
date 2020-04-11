@@ -73,17 +73,8 @@ const stateMapper = (state) => {
 const dispatchMapper = (dispatch) => {
     return {
         findAllUsers: () => {
-            let allUsers = [];
-
             usersService.findAllUsers().then(users => {
                 if (!users.hasOwnProperty("errorMessage")) {
-                    /*const allUsersId = users.map(eachUser => eachUser._nuid);
-                    /!*console.log('DEBUG: allUserId', allUsersId);*!/
-                    const allUniqueUsersSet = new Set(allUsersId);
-                    /!*console.log('DEBUG: allUniqueUsersSet', allUniqueUsersSet);*!/
-                    allUsers = [
-                        ...allUniqueUsersSet
-                    ];*/
                     dispatch(usersActions.getUniqueUsers(users));
                 }
             })
