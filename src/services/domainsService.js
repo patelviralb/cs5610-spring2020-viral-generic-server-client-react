@@ -1,11 +1,11 @@
-const API_URL = "https://wbdv-generic-server.herokuapp.com";
+const API_URL = "https://wbdv-generic-server.herokuapp.com/shh/nuids";
 let errorMessage = {
     responseCode: null,
     responseData: {}
 };
 
 const findAllDomainsForUser = (userNUId) =>
-    fetch(`${API_URL}/api/${userNUId}`).then(response => {
+    fetch(`${API_URL}/${userNUId}/domains`).then(response => {
         if (response.ok) {
             return response.json();
         } else {

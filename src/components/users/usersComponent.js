@@ -6,6 +6,18 @@ import Navbar from "../navbar";
 import EachUser from './eachUser'
 
 class UsersComponent extends Component {
+    state = {
+        isHighlightRequired: false,
+        currentHighlighted: -1
+    };
+
+    toggleHighlight = (indexToHighlight) => {
+        this.setState(previousState => ({
+            isHighlightRequired: !previousState.isHighlightRequired,
+            currentHighlighted: indexToHighlight
+        }));
+    };
+
     componentDidMount() {
         this.props.findAllUsers();
     }
@@ -28,7 +40,12 @@ class UsersComponent extends Component {
                                 this.props.allUniqueUsers.map(
                                     (eachUser, index) =>
                                         <EachUser key={index}
-                                                  eachUser={eachUser}/>
+                                                  eachUser={eachUser}
+                                                  index={index}
+                                                  isHighlightRequired={this.state.isHighlightRequired}
+                                                  currentHighlighted={this.state.currentHighlighted}
+                                                  toggleHighlight={this.toggleHighlight}
+                                        />
                                 )
                             }
                             {
@@ -60,14 +77,14 @@ const dispatchMapper = (dispatch) => {
 
             usersService.findAllUsers().then(users => {
                 if (!users.hasOwnProperty("errorMessage")) {
-                    const allUsersId = users.map(eachUser => eachUser._nuid);
-                    /*console.log('DEBUG: allUserId', allUsersId);*/
+                    /*const allUsersId = users.map(eachUser => eachUser._nuid);
+                    /!*console.log('DEBUG: allUserId', allUsersId);*!/
                     const allUniqueUsersSet = new Set(allUsersId);
-                    /*console.log('DEBUG: allUniqueUsersSet', allUniqueUsersSet);*/
+                    /!*console.log('DEBUG: allUniqueUsersSet', allUniqueUsersSet);*!/
                     allUsers = [
                         ...allUniqueUsersSet
-                    ];
-                    dispatch(usersActions.getUniqueUsers(allUsers));
+                    ];*/
+                    dispatch(usersActions.getUniqueUsers(users));
                 }
             })
         }

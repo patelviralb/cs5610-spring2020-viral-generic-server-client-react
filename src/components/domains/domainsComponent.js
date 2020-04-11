@@ -60,15 +60,15 @@ const dispatchMapper = (dispatch) => {
 
             domainsService.findAllDomainsForUser(userNUId).then(userDomains => {
                 if (!userDomains.hasOwnProperty("errorMessage")) {
-                    const allUserDomains = userDomains.map(
+                    /*const allUserDomains = userDomains.map(
                         eachDomain => eachDomain._domain);
-                    /*console.log('DEBUG: allUserId', allUsersId);*/
+                    /!*console.log('DEBUG: allUserId', allUsersId);*!/
                     const allUniqueDomainsSet = new Set(allUserDomains);
-                    /*console.log('DEBUG: allUniqueUsersSet', allUniqueUsersSet);*/
+                    /!*console.log('DEBUG: allUniqueUsersSet', allUniqueUsersSet);*!/
                     allDomains = [
                         ...allUniqueDomainsSet
-                    ];
-                    dispatch(domainsActions.getUniqueDomains(allDomains));
+                    ];*/
+                    dispatch(domainsActions.getUniqueDomains(userDomains));
                 }
             })
         }
