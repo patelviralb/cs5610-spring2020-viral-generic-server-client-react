@@ -4,8 +4,8 @@ let errorMessage = {
     responseData: {}
 };
 
-const findAllUsers = () =>
-    fetch(`${API_URL}/`).then(response => {
+const findAllDomainsForUser = (userNUId) =>
+    fetch(`${API_URL}/api/${userNUId}`).then(response => {
         if (response.ok) {
             return response.json();
         } else {
@@ -17,5 +17,5 @@ const findAllUsers = () =>
     });
 
 export default {
-    findAllUsers
+    findAllDomainsForUser
 };

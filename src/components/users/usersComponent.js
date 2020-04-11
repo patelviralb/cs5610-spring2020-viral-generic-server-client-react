@@ -23,11 +23,21 @@ class UsersComponent extends Component {
                     <ul className={"list-group"}>
                         <div className={"row"}>
                             {
+                                this.props.allUniqueUsers.length > 0
+                                &&
                                 this.props.allUniqueUsers.map(
                                     (eachUser, index) =>
                                         <EachUser key={index}
                                                   eachUser={eachUser}/>
                                 )
+                            }
+                            {
+                                this.props.allUniqueUsers.length <= 0
+                                &&
+                                <div
+                                    className={"col-12 d-flex justify-content-center alert alert-warning"}>
+                                    <h1>No Users Found</h1>
+                                </div>
                             }
                         </div>
                     </ul>
@@ -49,14 +59,16 @@ const dispatchMapper = (dispatch) => {
             let allUsers = [];
 
             usersService.findAllUsers().then(users => {
-                const allUsersId = users.map(eachUser => eachUser._nuid);
-                /*console.log('DEBUG: allUserId', allUsersId);*/
-                const allUniqueUsersSet = new Set(allUsersId);
-                /*console.log('DEBUG: allUniqueUsersSet', allUniqueUsersSet);*/
-                allUsers = [
-                    ...allUniqueUsersSet
-                ];
-                dispatch(usersActions.getUniqueUsers(allUsers));
+                if (!users.hasOwnProperty("errorMessage")) {
+                    const allUsersId = users.map(eachUser => eachUser._nuid);
+                    /*console.log('DEBUG: allUserId', allUsersId);*/
+                    const allUniqueUsersSet = new Set(allUsersId);
+                    /*console.log('DEBUG: allUniqueUsersSet', allUniqueUsersSet);*/
+                    allUsers = [
+                        ...allUniqueUsersSet
+                    ];
+                    dispatch(usersActions.getUniqueUsers(allUsers));
+                }
             })
         }
     }
