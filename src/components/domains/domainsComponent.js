@@ -6,6 +6,18 @@ import Navbar from "../navbar";
 import EachDomain from './eachDomain'
 
 class DomainsComponent extends Component {
+    state = {
+        isHighlightRequired: false,
+        currentHighlightedIndex: -1
+    };
+
+    toggleHighlight = (indexToHighlight) => {
+        this.setState(previousState => ({
+            isHighlightRequired: !previousState.isHighlightRequired,
+            currentHighlightedIndex: indexToHighlight
+        }));
+    };
+
     componentDidMount() {
         this.props.findAllDomainsForUser(this.props.match.params.userNUId);
     }
@@ -18,7 +30,8 @@ class DomainsComponent extends Component {
                 </div>
                 <div className={"container-fluid mb-5"}>
                     <div className={"d-flex justify-content-center m-5"}>
-                        <h2 className={"mt-5"}>All Available Domains</h2>
+                        <h2 className={"mt-5"}>All Available Domains
+                            for {this.props.match.params.userNUId}</h2>
                     </div>
                     <ul className={"list-group"}>
                         <div className={"row"}>
@@ -28,7 +41,13 @@ class DomainsComponent extends Component {
                                 this.props.allUniqueDomains.map(
                                     (eachDomain, index) =>
                                         <EachDomain key={index}
-                                                    eachDomain={eachDomain}/>
+                                                    eachDomain={eachDomain}
+                                                    userNUId={this.props.match.params.userNUId}
+                                                    index={index}
+                                                    isHighlightRequired={this.state.isHighlightRequired}
+                                                    currentHighlightedIndex={this.state.currentHighlightedIndex}
+                                                    toggleHighlight={this.toggleHighlight}
+                                        />
                                 )
                             }
                             {

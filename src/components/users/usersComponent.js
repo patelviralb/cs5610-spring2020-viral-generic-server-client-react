@@ -8,13 +8,13 @@ import EachUser from './eachUser'
 class UsersComponent extends Component {
     state = {
         isHighlightRequired: false,
-        currentHighlighted: -1
+        currentHighlightedIndex: -1
     };
 
     toggleHighlight = (indexToHighlight) => {
         this.setState(previousState => ({
             isHighlightRequired: !previousState.isHighlightRequired,
-            currentHighlighted: indexToHighlight
+            currentHighlightedIndex: indexToHighlight
         }));
     };
 
@@ -43,7 +43,7 @@ class UsersComponent extends Component {
                                                   eachUser={eachUser}
                                                   index={index}
                                                   isHighlightRequired={this.state.isHighlightRequired}
-                                                  currentHighlighted={this.state.currentHighlighted}
+                                                  currentHighlightedIndex={this.state.currentHighlightedIndex}
                                                   toggleHighlight={this.toggleHighlight}
                                         />
                                 )

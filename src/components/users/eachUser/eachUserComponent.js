@@ -8,7 +8,6 @@ class eachUserComponent extends Component {
             &&
             <div
                 className={"col-12 col-md-6 col-lg-3 text-center"}>
-                {/*<li className={"list-group-item text-wrap text-truncate"}*/}
                 <Link title={this.props.eachUser}
                       to={`/wam/nuids/${this.props.eachUser}`}
                       onFocus={() => this.props.toggleHighlight(
@@ -17,9 +16,9 @@ class eachUserComponent extends Component {
                       onMouseEnter={() => this.props.toggleHighlight(
                           this.props.index)}
                       onMouseLeave={() => this.props.toggleHighlight(-1)}
-                      className={`text-decoration-none ${this.props.currentHighlighted
+                      className={`text-decoration-none ${this.props.currentHighlightedIndex
                       === this.props.index ? "text-white" : ""}`}>
-                    <li className={`list-group-item text-wrap text-truncate ${this.props.currentHighlighted
+                    <li className={`list-group-item text-wrap text-truncate ${this.props.currentHighlightedIndex
                     === this.props.index ? "bg-secondary" : ""}`}
                         title={`${this.props.eachUser}`}>
                         {this.props.eachUser}
