@@ -14,13 +14,13 @@ const AppRouter = () =>
             />
 
             <Route
-                path="/wam/users"
+                path="/wam/nuids"
                 exact={true}
                 component={AllUniqueUsers}
             />
 
             <Route
-                path="/wam/users/:userNUId"
+                path="/wam/nuids/:userNUId"
                 exact={true}
                 render={(props) =>
                     <AllUniqueDomains {...props} />

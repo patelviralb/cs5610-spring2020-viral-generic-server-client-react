@@ -56,18 +56,8 @@ const stateMapper = (state) => {
 const dispatchMapper = (dispatch) => {
     return {
         findAllDomainsForUser: (userNUId) => {
-            let allDomains = [];
-
             domainsService.findAllDomainsForUser(userNUId).then(userDomains => {
                 if (!userDomains.hasOwnProperty("errorMessage")) {
-                    /*const allUserDomains = userDomains.map(
-                        eachDomain => eachDomain._domain);
-                    /!*console.log('DEBUG: allUserId', allUsersId);*!/
-                    const allUniqueDomainsSet = new Set(allUserDomains);
-                    /!*console.log('DEBUG: allUniqueUsersSet', allUniqueUsersSet);*!/
-                    allDomains = [
-                        ...allUniqueDomainsSet
-                    ];*/
                     dispatch(domainsActions.getUniqueDomains(userDomains));
                 }
             })
