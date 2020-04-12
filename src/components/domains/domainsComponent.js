@@ -30,7 +30,7 @@ class DomainsComponent extends Component {
                 </div>
                 <div className={"container-fluid mb-5"}>
                     <div className={"d-flex justify-content-center m-5"}>
-                        <h2 className={"mt-5"}>All Available Domains
+                        <h2 className={"mt-5"}>Domains
                             for {this.props.match.params.userNUId}</h2>
                     </div>
                     <ul className={"list-group"}>
@@ -55,7 +55,7 @@ class DomainsComponent extends Component {
                                 &&
                                 <div
                                     className={"col-12 d-flex justify-content-center alert alert-warning"}>
-                                    <h1>No Domains Found</h1>
+                                    <h3>No Domains Found</h3>
                                 </div>
                             }
                         </div>

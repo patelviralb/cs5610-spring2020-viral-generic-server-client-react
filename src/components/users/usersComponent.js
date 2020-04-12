@@ -53,7 +53,7 @@ class UsersComponent extends Component {
                                 &&
                                 <div
                                     className={"col-12 d-flex justify-content-center alert alert-warning"}>
-                                    <h1>No Users Found</h1>
+                                    <h3>No Users Found</h3>
                                 </div>
                             }
                         </div>
