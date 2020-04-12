@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
 import {connect} from "react-redux";
 import domainDataActions from "../../../redux/actions/domainDataActions";
-import EachDomainDataDisplay from "../eachDomainData/eachDomainDataDisplay";
+import EachDomainDataDisplay from "./eachDomainDataDisplay";
+import EachDomainDataEditComponent from "./eachDomainDataEdit";
 
 class eachDomainDataComponent extends Component {
     render() {
@@ -9,15 +10,25 @@ class eachDomainDataComponent extends Component {
             this.props.eachDomainData
             &&
             <div className={"container-fluid"}>
-                {/*<div className={"col-12 list-group-item"}>*/}
                 <div
                     className={`col-12 list-group-item ${this.props.domainDataIndexToEdit
                     === this.props.index ? "bg-secondary text-white"
                         : ""}`}>
                     <div className={"row"}>
                         <div className={"col-12 col-md-11 text-truncate"}>
-                            <EachDomainDataDisplay
-                                eachDomainData={this.props.eachDomainData} />
+                            {
+                                this.props.domainDataIndexToEdit
+                                === this.props.index
+                                &&
+                                <EachDomainDataEditComponent/>
+                            }
+                            {
+                                this.props.domainDataIndexToEdit
+                                !== this.props.index
+                                &&
+                                <EachDomainDataDisplay
+                                    eachDomainData={this.props.eachDomainData}/>
+                            }
                         </div>
                         <div
                             className={"col-12 col-md-1 d-flex justify-content-center"}>
