@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {Link} from "react-router-dom";
-import usersActions from "../../../redux/actions/usersActions";
 import {connect} from "react-redux";
+import usersActions from "../../../redux/actions/usersActions";
 
 class eachUserComponent extends Component {
     render() {
@@ -22,7 +22,7 @@ class eachUserComponent extends Component {
                           this.props.index)}
                       onMouseLeave={() => this.props.updateSelectedUserIndex(
                           -1)}>
-                    <li className={`list-group-item text-wrap text-truncate ${parseInt(
+                    <li className={`list-group-item text-truncate ${parseInt(
                         this.props.selectedUserIndex) === this.props.index
                         ? "bg-secondary" : ""}`}
                         title={`${this.props.eachUser}`}>

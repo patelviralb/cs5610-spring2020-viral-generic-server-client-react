@@ -6,18 +6,6 @@ import Navbar from "../navbar";
 import EachDomain from './eachDomain'
 
 class DomainsComponent extends Component {
-    state = {
-        isHighlightRequired: false,
-        currentHighlightedIndex: -1
-    };
-
-    toggleHighlight = (indexToHighlight) => {
-        this.setState(previousState => ({
-            isHighlightRequired: !previousState.isHighlightRequired,
-            currentHighlightedIndex: indexToHighlight
-        }));
-    };
-
     componentDidMount() {
         this.props.findAllDomainsForUser(this.props.match.params.userNUId);
     }
@@ -56,9 +44,6 @@ class DomainsComponent extends Component {
                                                     eachDomain={eachDomain}
                                                     userNUId={this.props.match.params.userNUId}
                                                     index={index}
-                                                    isHighlightRequired={this.state.isHighlightRequired}
-                                                    currentHighlightedIndex={this.state.currentHighlightedIndex}
-                                                    toggleHighlight={this.toggleHighlight}
                                         />
                                 )
                             }
