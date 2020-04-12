@@ -9,6 +9,7 @@ class domainDataComponent extends Component {
     componentDidMount() {
         this.props.findAllDomainData(this.props.match.params.userNUId,
             this.props.match.params.domain);
+        this.props.resetDomainDataSelectedIndex();
     }
 
     render() {
@@ -84,6 +85,9 @@ const dispatchMapper = (dispatch) => {
                         dispatch(domainDataActions.getDomainData(domainData));
                     }
                 })
+        },
+        resetDomainDataSelectedIndex: () => {
+            dispatch(domainDataActions.updateDomainDataEditIndex(-1));
         }
     }
 };

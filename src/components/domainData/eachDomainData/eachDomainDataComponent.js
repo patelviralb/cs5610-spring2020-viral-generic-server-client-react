@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from "react-redux";
 import domainDataActions from "../../../redux/actions/domainDataActions";
+import EachDomainDataDisplay from "../eachDomainData/eachDomainDataDisplay";
 
 class eachDomainDataComponent extends Component {
     render() {
@@ -15,26 +16,8 @@ class eachDomainDataComponent extends Component {
                         : ""}`}>
                     <div className={"row"}>
                         <div className={"col-12 col-md-11 text-truncate"}>
-                            <div className={"row"}>
-                                {
-                                    Object.keys(this.props.eachDomainData).map(
-                                        (key, index) => {
-                                            let property = key + "";
-                                            if (property.charAt(0) !== "_") {
-                                                return (
-                                                    <div className={"col"}
-                                                         key={index}>
-                                                        {typeof (this.props.eachDomainData[key])
-                                                        === "object"
-                                                            ? "[Object]"
-                                                            : this.props.eachDomainData[key]}
-                                                    </div>
-                                                )
-                                            }
-                                            return null
-                                        })
-                                }
-                            </div>
+                            <EachDomainDataDisplay
+                                eachDomainData={this.props.eachDomainData} />
                         </div>
                         <div
                             className={"col-12 col-md-1 d-flex justify-content-center"}>

@@ -8,6 +8,7 @@ import EachDomain from './eachDomain'
 class DomainsComponent extends Component {
     componentDidMount() {
         this.props.findAllDomainsForUser(this.props.match.params.userNUId);
+        this.props.resetDomainSelectedIndex();
     }
 
     render() {
@@ -77,6 +78,9 @@ const dispatchMapper = (dispatch) => {
                     dispatch(domainsActions.getUniqueDomains(userDomains));
                 }
             })
+        },
+        resetDomainSelectedIndex: () => {
+            dispatch(domainsActions.updateSelectedDomainIndex(-1));
         }
     }
 };

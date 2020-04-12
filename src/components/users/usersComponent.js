@@ -8,6 +8,7 @@ import EachUser from './eachUser'
 class UsersComponent extends Component {
     componentDidMount() {
         this.props.findAllUsers();
+        this.props.resetUserSelectedIndex();
     }
 
     render() {
@@ -63,6 +64,9 @@ const dispatchMapper = (dispatch) => {
                     dispatch(usersActions.getUniqueUsers(users));
                 }
             })
+        },
+        resetUserSelectedIndex: () => {
+            dispatch(usersActions.updateSelectedUserIndex(-1));
         }
     }
 };

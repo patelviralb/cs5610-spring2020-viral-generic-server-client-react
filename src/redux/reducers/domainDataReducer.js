@@ -6,7 +6,7 @@ import {
 
 const initialState = {
     domainSpecificData: [],
-    domainDataIndexToEdit: "",
+    domainDataIndexToEdit: -1,
     domainDataToEdit: {}
 };
 
