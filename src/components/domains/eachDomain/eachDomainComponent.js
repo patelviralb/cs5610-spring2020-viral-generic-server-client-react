@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
 import {Link} from "react-router-dom";
+import {connect} from "react-redux";
+import domainsActions from "../../../redux/actions/domainsActions";
 
 class eachDomainComponent extends Component {
     render() {
@@ -8,18 +10,21 @@ class eachDomainComponent extends Component {
             &&
             <div
                 className={"col-12"}>
-                <Link title={this.props.eachDomain}
+                <Link className={`text-decoration-none ${parseInt(
+                    this.props.selectedDomainIndex) === this.props.index
+                    ? "text-white" : ""}`}
+                      title={this.props.eachDomain}
                       to={`/wam/nuids/${this.props.userNUId}/domains/${this.props.eachDomain}`}
-                      onFocus={() => this.props.toggleHighlight(
+                      onFocus={() => this.props.updateSelectedDomainIndex(
                           this.props.index)}
-                      onBlur={() => this.props.toggleHighlight(-1)}
-                      onMouseEnter={() => this.props.toggleHighlight(
+                      onBlur={() => this.props.updateSelectedDomainIndex(-1)}
+                      onMouseEnter={() => this.props.updateSelectedDomainIndex(
                           this.props.index)}
-                      onMouseLeave={() => this.props.toggleHighlight(-1)}
-                      className={`text-decoration-none ${this.props.currentHighlightedIndex
-                      === this.props.index ? "text-white" : ""}`}>
-                    <li className={`list-group-item text-wrap text-truncate ${this.props.currentHighlightedIndex
-                    === this.props.index ? "bg-secondary" : ""}`}
+                      onMouseLeave={() => this.props.updateSelectedDomainIndex(
+                          -1)}>
+                    <li className={`list-group-item text-truncate ${parseInt(
+                        this.props.selectedDomainIndex) === this.props.index
+                        ? "bg-secondary" : ""}`}
                         title={`${this.props.eachDomain}`}>
                         {this.props.eachDomain}
                     </li>
@@ -29,4 +34,18 @@ class eachDomainComponent extends Component {
     }
 }
 
-export default eachDomainComponent;
+const stateMapper = (state) => {
+    return {
+        selectedDomainIndex: state.domains.selectedDomainIndex
+    }
+};
+
+const dispatchMapper = (dispatch) => {
+    return {
+        updateSelectedDomainIndex: (index) => {
+            dispatch(domainsActions.updateSelectedDomainIndex(index));
+        }
+    }
+};
+
+export default connect(stateMapper, dispatchMapper)(eachDomainComponent);

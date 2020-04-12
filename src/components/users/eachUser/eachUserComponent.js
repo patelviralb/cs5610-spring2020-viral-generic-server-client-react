@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
 import {Link} from "react-router-dom";
+import {connect} from "react-redux";
+import usersActions from "../../../redux/actions/usersActions";
 
 class eachUserComponent extends Component {
     render() {
@@ -8,18 +10,21 @@ class eachUserComponent extends Component {
             &&
             <div
                 className={"col-12 col-md-6 col-lg-3 text-center"}>
-                <Link title={this.props.eachUser}
+                <Link className={`text-decoration-none ${parseInt(
+                    this.props.selectedUserIndex) === this.props.index
+                    ? "text-white" : ""}`}
+                      title={this.props.eachUser}
                       to={`/wam/nuids/${this.props.eachUser}`}
-                      onFocus={() => this.props.toggleHighlight(
+                      onFocus={() => this.props.updateSelectedUserIndex(
                           this.props.index)}
-                      onBlur={() => this.props.toggleHighlight(-1)}
-                      onMouseEnter={() => this.props.toggleHighlight(
+                      onBlur={() => this.props.updateSelectedUserIndex(-1)}
+                      onMouseEnter={() => this.props.updateSelectedUserIndex(
                           this.props.index)}
-                      onMouseLeave={() => this.props.toggleHighlight(-1)}
-                      className={`text-decoration-none ${this.props.currentHighlightedIndex
-                      === this.props.index ? "text-white" : ""}`}>
-                    <li className={`list-group-item text-wrap text-truncate ${this.props.currentHighlightedIndex
-                    === this.props.index ? "bg-secondary" : ""}`}
+                      onMouseLeave={() => this.props.updateSelectedUserIndex(
+                          -1)}>
+                    <li className={`list-group-item text-truncate ${parseInt(
+                        this.props.selectedUserIndex) === this.props.index
+                        ? "bg-secondary" : ""}`}
                         title={`${this.props.eachUser}`}>
                         {this.props.eachUser}
                     </li>
@@ -29,9 +34,18 @@ class eachUserComponent extends Component {
     }
 }
 
-/*
-https://www.andreasreiterer.at/dynamically-add-classes/
-https://bitsofco.de/when-do-the-hover-focus-and-active-pseudo-classes-apply/
-*/
+const stateMapper = (state) => {
+    return {
+        selectedUserIndex: state.users.selectedUserIndex
+    }
+};
 
-export default eachUserComponent;
+const dispatchMapper = (dispatch) => {
+    return {
+        updateSelectedUserIndex: (index) => {
+            dispatch(usersActions.updateSelectedUserIndex(index));
+        }
+    }
+};
+
+export default connect(stateMapper, dispatchMapper)(eachUserComponent);
