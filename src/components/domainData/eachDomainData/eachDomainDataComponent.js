@@ -73,7 +73,8 @@ const dispatchMapper = (dispatch) => {
     return {
         updateDomainDataEdit: (index, domainDataToEdit) => {
             dispatch(domainDataActions.updateDomainDataEditIndex(index));
-            dispatch(domainDataActions.updateDomainDataToEdit(domainDataToEdit));
+            dispatch(
+                domainDataActions.updateDomainDataToEdit(domainDataToEdit));
         }
     }
 };

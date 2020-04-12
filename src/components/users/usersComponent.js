@@ -6,18 +6,6 @@ import Navbar from "../navbar";
 import EachUser from './eachUser'
 
 class UsersComponent extends Component {
-    state = {
-        isHighlightRequired: false,
-        currentHighlightedIndex: -1
-    };
-
-    toggleHighlight = (indexToHighlight) => {
-        this.setState(previousState => ({
-            isHighlightRequired: !previousState.isHighlightRequired,
-            currentHighlightedIndex: indexToHighlight
-        }));
-    };
-
     componentDidMount() {
         this.props.findAllUsers();
     }
@@ -42,9 +30,6 @@ class UsersComponent extends Component {
                                         <EachUser key={index}
                                                   eachUser={eachUser}
                                                   index={index}
-                                                  isHighlightRequired={this.state.isHighlightRequired}
-                                                  currentHighlightedIndex={this.state.currentHighlightedIndex}
-                                                  toggleHighlight={this.toggleHighlight}
                                         />
                                 )
                             }

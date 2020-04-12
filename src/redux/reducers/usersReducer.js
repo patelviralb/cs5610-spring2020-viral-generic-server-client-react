@@ -1,7 +1,11 @@
-import {GET_UNIQUE_USERS} from '../actions/usersActions'
+import {
+    GET_UNIQUE_USERS,
+    UPDATE_SELECTED_USER_INDEX
+} from '../actions/usersActions'
 
 const initialState = {
-    uniqueUsers: []
+    uniqueUsers: [],
+    selectedUserIndex: -1
 };
 
 const usersReducer = (state = initialState, action) => {
@@ -10,6 +14,12 @@ const usersReducer = (state = initialState, action) => {
             return {
                 ...state,
                 uniqueUsers: action.uniqueUsers
+            };
+
+        case UPDATE_SELECTED_USER_INDEX:
+            return {
+                ...state,
+                selectedUserIndex: action.selectedUserIndex
             };
 
         default:

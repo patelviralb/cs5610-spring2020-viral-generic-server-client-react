@@ -28,9 +28,21 @@ class DomainsComponent extends Component {
                 <div className={"mb-5"}>
                     <Navbar/>
                 </div>
+                <div className={"container-fluid row mt-5"}>
+                    <div className={"col-12 col-md-6 mt-5"}>
+                        <button className={"btn btn-primary"}
+                                onClick={() =>
+                                    this.props.history.push(
+                                        `/wam/nuids`)
+                                }
+                        >
+                            <i className="fas fa-arrow-left"></i> Back
+                        </button>
+                    </div>
+                </div>
                 <div className={"container-fluid mb-5"}>
-                    <div className={"d-flex justify-content-center m-5"}>
-                        <h2 className={"mt-5"}>Domains
+                    <div className={"d-flex justify-content-center mb-5"}>
+                        <h2>Domains
                             for {this.props.match.params.userNUId}</h2>
                     </div>
                     <ul className={"list-group"}>
