@@ -23,17 +23,19 @@ const AppRouter = () =>
             <Route
                 path="/wam/nuids/:userNUId"
                 exact={true}
-                render={(props) =>
+                /*render={(props) =>
                     <AllUniqueDomains {...props} />
-                }
+                }*/
+                component={AllUniqueDomains}
             />
 
             <Route
                 path="/wam/nuids/:userNUId/domains/:domain"
                 exact={true}
-                render={(props) =>
+                /*render={(props) =>
                     <DomainData {...props} />
-                }
+                }*/
+                component={DomainData}
             />
 
             <Route

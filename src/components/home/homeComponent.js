@@ -12,7 +12,7 @@ class HomeComponent extends Component {
                 </div>
                 <div className="text-center">
                     <img src={wamImage}
-                         className={"rounded mx-auto d-block pt-5"}
+                         className={"rounded mx-auto d-block pt-5 w-25"}
                          alt={"Web Access Management"}/>
                 </div>
                 <h1 className={"d-flex justify-content-center mt-5"}>
