@@ -14,7 +14,7 @@ class eachDomainDataDisplayComponent extends Component {
                                          key={index}>
                                         {typeof (this.props.eachDomainData[key])
                                         === "object"
-                                            ? "[Object]"
+                                            ? typeof (this.props.eachDomainData[key])
                                             : this.props.eachDomainData[key]}
                                     </div>
                                 )

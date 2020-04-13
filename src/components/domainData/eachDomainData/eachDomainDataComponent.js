@@ -1,8 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from "react-redux";
-import domainDataActions from "../../../redux/actions/domainDataActions";
-import EachDomainDataDisplay from "./eachDomainDataDisplay";
-import EachDomainDataEditComponent from "./eachDomainDataEdit";
+import EachDomainDataToEdit from "./eachDomainDataToEdit";
+import EachDomainDataToDisplay from "./eachDomainDataToDisplay";
 
 class eachDomainDataComponent extends Component {
     render() {
@@ -12,39 +11,21 @@ class eachDomainDataComponent extends Component {
             <div className={"container-fluid"}>
                 <div
                     className={`col-12 list-group-item ${this.props.domainDataIndexToEdit
-                    === this.props.index ? "bg-secondary text-white"
+                    === this.props.index ? "border border-info"
                         : ""}`}>
-                    <div className={"row"}>
-                        <div className={"col-12 col-md-11 text-truncate"}>
-                            {
-                                this.props.domainDataIndexToEdit
-                                === this.props.index
-                                &&
-                                <EachDomainDataEditComponent/>
-                            }
-                            {
-                                this.props.domainDataIndexToEdit
-                                !== this.props.index
-                                &&
-                                <EachDomainDataDisplay
-                                    eachDomainData={this.props.eachDomainData}/>
-                            }
-                        </div>
-                        <div
-                            className={"col-12 col-md-1 d-flex justify-content-center"}>
-                            <div>
-                                <button className={"btn btn-warning"}
-                                        onClick={() =>
-                                            this.props.updateDomainDataEdit(
-                                                this.props.index,
-                                                this.props.eachDomainData
-                                            )
-                                        }>
-                                    <i className={"fa fa-edit"}></i>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
+                    {
+                        this.props.domainDataIndexToEdit !== this.props.index
+                        &&
+                        <EachDomainDataToDisplay
+                            index={this.props.index}
+                            eachDomainData={this.props.eachDomainData}/>
+                    }
+                    {
+                        this.props.domainDataIndexToEdit === this.props.index
+                        &&
+                        <EachDomainDataToEdit
+                            eachDomainData={this.props.eachDomainData}/>
+                    }
                 </div>
             </div>
         )
@@ -59,13 +40,7 @@ const stateMapper = (state) => {
 };
 
 const dispatchMapper = (dispatch) => {
-    return {
-        updateDomainDataEdit: (index, domainDataToEdit) => {
-            dispatch(domainDataActions.updateDomainDataEditIndex(index));
-            dispatch(
-                domainDataActions.updateDomainDataToEdit(domainDataToEdit));
-        }
-    }
+    return {}
 };
 
 export default connect(stateMapper, dispatchMapper)(eachDomainDataComponent);
