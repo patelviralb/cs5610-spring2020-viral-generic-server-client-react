@@ -6,13 +6,6 @@ import domainDataService from "../../../../services/domainDataService";
 import {Link, Redirect} from "react-router-dom";
 
 class eachDomainDataToEditComponent extends Component {
-
-    deleteDomainData = (userNUId, domain, domainId) => {
-        this.props.deleteDomainData(this.props.userNUId,
-            this.props.params.domain, this.props.params.domainId);
-        return <Redirect to={`/wam/nuids/${this.props.params.userNUId}/domains/${this.props.params.domain}`}/>
-    };
-
     render() {
         return (
             <div>
@@ -30,7 +23,7 @@ class eachDomainDataToEditComponent extends Component {
                         </Link>
                         <Link
                             className={"btn btn-danger ml-2"}
-                            onClick={() => this.deleteDomainData(
+                            onClick={() => this.props.deleteDomainData(
                                 this.props.params.userNUId,
                                 this.props.params.domain,
                                 this.props.domainDataToEdit._id)}
