@@ -33,6 +33,12 @@ const AppRouter = () =>
             />
 
             <Route
+                path="/wam/nuids/:userNUId/domains/:domain/:domainId"
+                exact={true}
+                component={DomainData}
+            />
+
+            <Route
                 path="*"
                 render={() =>
                     <Redirect to="/wam"/>

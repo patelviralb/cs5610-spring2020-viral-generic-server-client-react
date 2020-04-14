@@ -48,8 +48,21 @@ const deleteDomainData = (userNUId, domain, domainId) =>
         }
     });
 
+const findSpecificDomainData = (userNUId, domain, domainId) =>
+    fetch(`${API_URL}/${userNUId}/${domain}/${domainId}`).then(response => {
+        if (response.ok) {
+            return response.json();
+        } else {
+            errorMessage.responseCode = response.status;
+            errorMessage.responseData = response;
+
+            return errorMessage;
+        }
+    });
+
 export default {
     findAllDomainSpecificData,
     saveUpdatedDomainData,
-    deleteDomainData
+    deleteDomainData,
+    findSpecificDomainData
 };

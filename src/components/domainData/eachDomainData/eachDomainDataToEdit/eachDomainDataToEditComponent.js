@@ -3,8 +3,18 @@ import domainDataActions from "../../../../redux/actions/domainDataActions";
 import {connect} from "react-redux";
 import EachDomainDataEditComponent from "../eachDomainDataEdit";
 import domainDataService from "../../../../services/domainDataService";
+import {Link, Redirect} from "react-router-dom";
 
 class eachDomainDataToEditComponent extends Component {
+
+    deleteDomainData = (userNUId, domain, domainId) => {
+        this.props.deleteDomainData(this.props.userNUId,
+            this.props.params.domain, this.props.domainDataToEdit._id);
+        /*this.props.history.push(`/wam/nuids/${userNUId}/domains/${domain}`);*/
+        /*return <Redirect to={`/wam/nuids/${userNUId}/domains/${domain}`}/>*/
+        console.log('DEBUG: Delete Finish');
+    };
+
     render() {
         return (
             <div>
@@ -19,15 +29,16 @@ class eachDomainDataToEditComponent extends Component {
                             <i className={"fas fa-save mr-1"}/>
                             Save
                         </button>
-                        <button
+                        <Link
                             className={"btn btn-danger ml-2"}
-                            onClick={() => this.props.deleteDomainData(
-                                this.props.userNUId,
+                            onClick={() => this.deleteDomainData(
+                                this.props.params.userNUId,
                                 this.props.params.domain,
-                                this.props.domainDataToEdit._id)}>
+                                this.props.domainDataToEdit._id)}
+                            to={`/wam/nuids/${this.props.params.userNUId}/domains/${this.props.params.domain}`}>
                             <i className={"fas fa-trash-alt mr-1"}/>
                             Delete
-                        </button>
+                        </Link>
                         <button
                             className={"btn btn-warning ml-2"}
                             onClick={() =>
@@ -59,8 +70,9 @@ const stateMapper = (state) => {
 
 const dispatchMapper = (dispatch) => {
     return {
-        updateDomainDataEdit: (index, domainDataToEdit) => {
-            dispatch(domainDataActions.updateDomainDataEditIndex(index));
+        updateDomainDataEdit: (domainDataToEdit) => {
+            dispatch(
+                domainDataActions.updateDomainDataEditId(domainDataToEdit._id));
             dispatch(
                 domainDataActions.updateDomainDataToEdit(domainDataToEdit));
         },
@@ -70,7 +82,7 @@ const dispatchMapper = (dispatch) => {
                 updatedDomainData => {
                     if (!updatedDomainData.hasOwnProperty("errorMessage")) {
                         dispatch(
-                            domainDataActions.updateDomainDataEditIndex(-1));
+                            domainDataActions.updateDomainDataEditId(-1));
                         dispatch(
                             domainDataActions.updateDomainDataToEdit(null));
                     }
@@ -81,20 +93,24 @@ const dispatchMapper = (dispatch) => {
                 removedDomainData => {
                     if (!removedDomainData.hasOwnProperty("errorMessage")) {
                         dispatch(
-                            domainDataActions.updateDomainDataEditIndex(-1));
+                            domainDataActions.updateDomainDataEditId(""));
                         dispatch(
                             domainDataActions.updateDomainDataToEdit(null));
-                        domainDataService.findAllDomainSpecificData(userNUId, domain).then(
+                        domainDataService.findAllDomainSpecificData(userNUId,
+                            domain).then(
                             domainData => {
-                                if (!domainData.hasOwnProperty("errorMessage")) {
-                                    dispatch(domainDataActions.getDomainData(domainData));
+                                if (!domainData.hasOwnProperty(
+                                    "errorMessage")) {
+                                    dispatch(domainDataActions.getDomainData(
+                                        domainData));
                                 }
                             })
                     }
                 });
         },
-        reloadDomainDataToEdit: (index, domainDataToEdit) => {
-            dispatch(domainDataActions.updateDomainDataEditIndex(index));
+        reloadDomainDataToEdit: (domainDataToEdit) => {
+            dispatch(
+                domainDataActions.updateDomainDataEditId(domainDataToEdit._id));
             dispatch(
                 domainDataActions.updateDomainDataToEdit(domainDataToEdit));
         }

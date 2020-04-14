@@ -9,7 +9,12 @@ class domainDataComponent extends Component {
     componentDidMount() {
         this.props.findAllDomainData(this.props.match.params.userNUId,
             this.props.match.params.domain);
-        this.props.resetDomainDataSelectedIndex();
+        this.props.resetDomainDataSelectedId();
+        if (this.props.match.params.domainId !== "") {
+            this.props.updateDomainDataEdit(this.props.match.params.userNUId,
+                this.props.match.params.domain,
+                this.props.match.params.domainId);
+        }
     }
 
     render() {
@@ -46,7 +51,6 @@ class domainDataComponent extends Component {
                                         <EachDomainData key={index}
                                                         params={this.props.match.params}
                                                         eachDomainData={eachDomainData}
-                                                        index={index}
                                         />
                                 )
                             }
@@ -69,7 +73,8 @@ class domainDataComponent extends Component {
 
 const stateMapper = (state) => {
     return {
-        domainSpecificData: state.domainData.domainSpecificData
+        domainSpecificData: state.domainData.domainSpecificData,
+        domainDataIdToEdit: state.domainData.domainDataIdToEdit
     }
 };
 
@@ -83,10 +88,21 @@ const dispatchMapper = (dispatch) => {
                     }
                 })
         },
-        resetDomainDataSelectedIndex: () => {
-            dispatch(domainDataActions.updateDomainDataEditIndex(-1));
+        resetDomainDataSelectedId: () => {
+            dispatch(domainDataActions.updateDomainDataEditId(""));
             dispatch(
                 domainDataActions.updateDomainDataToEdit(null));
+        },
+        updateDomainDataEdit: (userNUId, domain, domainDataIdToEdit) => {
+            domainDataService.findSpecificDomainData(userNUId, domain,
+                domainDataIdToEdit).then(specificDomainData => {
+                if (!specificDomainData.hasOwnProperty("errorMessage")) {
+                    dispatch(domainDataActions.updateDomainDataEditId(
+                        domainDataIdToEdit));
+                    dispatch(domainDataActions.updateDomainDataToEdit(
+                        specificDomainData));
+                }
+            })
         }
     }
 };

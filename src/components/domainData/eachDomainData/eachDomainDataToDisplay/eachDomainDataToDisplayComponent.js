@@ -2,6 +2,7 @@ import React, {Component} from "react";
 import EachDomainDataDisplay from "../eachDomainDataDisplay";
 import domainDataActions from "../../../../redux/actions/domainDataActions";
 import {connect} from "react-redux";
+import {Link} from "react-router-dom";
 
 class eachDomainDataToDisplayComponent extends Component {
     render() {
@@ -13,15 +14,15 @@ class eachDomainDataToDisplayComponent extends Component {
                 </div>
                 <div
                     className={"col-12 col-md-1 d-flex justify-content-end"}>
-                    <button className={"btn btn-warning"}
-                            onClick={() =>
-                                this.props.updateDomainDataEdit(
-                                    this.props.index,
-                                    this.props.eachDomainData
-                                )
-                            }>
+                    <Link className={"btn btn-warning"}
+                          onClick={() =>
+                              this.props.updateDomainDataEdit(
+                                  this.props.eachDomainData
+                              )
+                          }
+                          to={`/wam/nuids/${this.props.params.userNUId}/domains/${this.props.params.domain}/${this.props.eachDomainData._id}`}>
                         <i className={"fa fa-edit"}/>
-                    </button>
+                    </Link>
                 </div>
             </div>
         )
@@ -34,12 +35,14 @@ const stateMapper = (state) => {
 
 const dispatchMapper = (dispatch) => {
     return {
-        updateDomainDataEdit: (index, domainDataToEdit) => {
-            dispatch(domainDataActions.updateDomainDataEditIndex(index));
+        updateDomainDataEdit: (domainDataToEdit) => {
+            dispatch(
+                domainDataActions.updateDomainDataEditId(domainDataToEdit._id));
             dispatch(
                 domainDataActions.updateDomainDataToEdit(domainDataToEdit));
         }
     }
 };
 
-export default connect(stateMapper, dispatchMapper)(eachDomainDataToDisplayComponent);
+export default connect(stateMapper, dispatchMapper)(
+    eachDomainDataToDisplayComponent);

@@ -8,9 +8,9 @@ const getDomainData = (domainData) => ({
     domainData: domainData
 });
 
-const updateDomainDataEditIndex = (index) => ({
+const updateDomainDataEditId = (domainId) => ({
     type: UPDATE_DOMAIN_DATA_INDEX,
-    indexToEdit: index
+    domainDataToEditId: domainId
 });
 
 const updateDomainDataToEdit = (domainDataToEdit) => ({
@@ -26,7 +26,7 @@ const addNewProperty = (newDomainDataObject) => ({
 
 export default {
     getDomainData,
-    updateDomainDataEditIndex,
+    updateDomainDataEditId,
     updateDomainDataToEdit,
     addNewProperty
 };

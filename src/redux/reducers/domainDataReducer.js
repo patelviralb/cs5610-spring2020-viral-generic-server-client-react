@@ -7,7 +7,7 @@ import {
 
 const initialState = {
     domainSpecificData: [],
-    domainDataIndexToEdit: -1,
+    domainDataIdToEdit: "",
     domainDataToEdit: {},
     domainDataNewAddedFields: {}
 };
@@ -23,7 +23,7 @@ const domainsReducer = (state = initialState, action) => {
         case UPDATE_DOMAIN_DATA_INDEX:
             return {
                 ...state,
-                domainDataIndexToEdit: action.indexToEdit
+                domainDataIdToEdit: action.domainDataToEditId
             };
 
         case UPDATE_DOMAIN_DATA_TO_EDIT:

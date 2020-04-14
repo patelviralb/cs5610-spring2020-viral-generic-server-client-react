@@ -10,18 +10,18 @@ class eachDomainDataComponent extends Component {
             &&
             <div className={"container-fluid"}>
                 <div
-                    className={`col-12 list-group-item ${this.props.domainDataIndexToEdit
-                    === this.props.index ? "border border-info"
+                    className={`col-12 list-group-item ${this.props.domainDataIdToEdit
+                    === this.props.eachDomainData._id ? "border border-info"
                         : ""}`}>
                     {
-                        this.props.domainDataIndexToEdit !== this.props.index
+                        this.props.domainDataIdToEdit !== this.props.eachDomainData._id
                         &&
                         <EachDomainDataToDisplay
-                            index={this.props.index}
+                            params={this.props.params}
                             eachDomainData={this.props.eachDomainData}/>
                     }
                     {
-                        this.props.domainDataIndexToEdit === this.props.index
+                        this.props.domainDataIdToEdit === this.props.eachDomainData._id
                         &&
                         <EachDomainDataToEdit
                             params={this.props.params}
@@ -35,7 +35,7 @@ class eachDomainDataComponent extends Component {
 
 const stateMapper = (state) => {
     return {
-        domainDataIndexToEdit: state.domainData.domainDataIndexToEdit
+        domainDataIdToEdit: state.domainData.domainDataIdToEdit
     }
 };
 
