@@ -1,13 +1,15 @@
 import {
     GET_DOMAIN_DATA,
     UPDATE_DOMAIN_DATA_INDEX,
-    UPDATE_DOMAIN_DATA_To_EDIT
+    UPDATE_DOMAIN_DATA_TO_EDIT,
+    ADD_NEW_PROPERTY
 } from '../actions/domainDataActions'
 
 const initialState = {
     domainSpecificData: [],
     domainDataIndexToEdit: -1,
-    domainDataToEdit: {}
+    domainDataToEdit: {},
+    domainDataNewAddedFields: {}
 };
 
 const domainsReducer = (state = initialState, action) => {
@@ -24,10 +26,16 @@ const domainsReducer = (state = initialState, action) => {
                 domainDataIndexToEdit: action.indexToEdit
             };
 
-        case UPDATE_DOMAIN_DATA_To_EDIT:
+        case UPDATE_DOMAIN_DATA_TO_EDIT:
             return {
                 ...state,
                 domainDataToEdit: action.domainDataToEdit
+            };
+
+        case ADD_NEW_PROPERTY:
+            return {
+                ...state,
+                domainDataToEdit: action.newDomainDataObject
             };
 
         default:

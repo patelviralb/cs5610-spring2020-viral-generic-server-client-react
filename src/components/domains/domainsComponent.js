@@ -25,7 +25,7 @@ class DomainsComponent extends Component {
                                         `/wam/nuids`)
                                 }
                         >
-                            <i className="fas fa-arrow-left"></i> Back
+                            <i className="fas fa-arrow-left"/> Back
                         </button>
                     </div>
                 </div>

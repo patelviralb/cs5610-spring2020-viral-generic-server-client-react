@@ -24,6 +24,7 @@ class eachDomainDataComponent extends Component {
                         this.props.domainDataIndexToEdit === this.props.index
                         &&
                         <EachDomainDataToEdit
+                            params={this.props.params}
                             eachDomainData={this.props.eachDomainData}/>
                     }
                 </div>
@@ -34,8 +35,7 @@ class eachDomainDataComponent extends Component {
 
 const stateMapper = (state) => {
     return {
-        domainDataIndexToEdit: state.domainData.domainDataIndexToEdit,
-        domainDataToEdit: state.domainData.domainDataToEdit
+        domainDataIndexToEdit: state.domainData.domainDataIndexToEdit
     }
 };
 

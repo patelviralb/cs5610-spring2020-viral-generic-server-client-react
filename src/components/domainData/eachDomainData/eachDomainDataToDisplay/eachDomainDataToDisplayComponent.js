@@ -20,7 +20,7 @@ class eachDomainDataToDisplayComponent extends Component {
                                     this.props.eachDomainData
                                 )
                             }>
-                        <i className={"fa fa-edit"}></i>
+                        <i className={"fa fa-edit"}/>
                     </button>
                 </div>
             </div>
