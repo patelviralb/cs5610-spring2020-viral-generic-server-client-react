@@ -85,7 +85,6 @@ class eachDomainDataEditComponent extends Component {
     removeField = (propertyKey) => {
         let newDomainDataObject = this.state.dataToEdit;
         delete newDomainDataObject[propertyKey];
-        console.log('DEBUG: Delete Field', newDomainDataObject);
         this.setState({
             dataToEdit: newDomainDataObject
         });
@@ -111,22 +110,13 @@ class eachDomainDataEditComponent extends Component {
                                                 className={"col-12 col-lg-2 form-control ml-1 ml-lg-0 mr-1"}
                                                 value={key} disabled/>
                                             <input
-                                                className={"col-12 col-lg-8 form-control ml-1 ml-lg-0 mr-1"}
+                                                className={"col-12 col-lg-9 form-control ml-1 ml-lg-0 mr-1"}
                                                 onChange={(event) => this.editExistingPropertyValue(
                                                     event,
                                                     this.state.dataToEdit._id,
                                                     this.props.params.domain,
                                                     key)}
                                                 value={this.state.dataToEdit[key]}/>
-                                            <span
-                                                className={"col-12 col-lg-1 d-flex justify-content-center"}>
-                                                <button
-                                                    className={"btn btn-danger mt-1 mt-lg-0"}
-                                                    onClick={() => this.removeField(
-                                                        key)}>
-                                                    <i className={"fas fa-trash-alt"}/>
-                                                </button>
-                                            </span>
                                         </div>
                                     )
                                 }
@@ -135,14 +125,12 @@ class eachDomainDataEditComponent extends Component {
                                         className={"row mt-2 justify-content-center"}
                                         key={key}>
                                         <input
-                                            className={"col-12 col-lg-2 form-control ml-1 ml-lg-0 mr-1"}
+                                            className={"col-12 col-lg-2 form-control ml-2 ml-lg-0 mr-1"}
                                             value={key} disabled/>
                                         <input
-                                            className={"col-12 col-lg-8 form-control ml-1 ml-lg-0 mr-1"}
+                                            className={"col-12 col-lg-9 form-control ml-2 ml-lg-0 mr-1"}
                                             value={this.state.dataToEdit[key]}
                                             disabled/>
-                                        <span
-                                            className={"col-12 col-lg-1 mt-1 mt-lg-0"}/>
                                     </div>
                                 )
                             }
@@ -163,13 +151,13 @@ class eachDomainDataEditComponent extends Component {
                         <div
                             className={"row mt-2 d-flex justify-content-center"}>
                             <input
-                                className={"col-12 col-lg-2 form-control mr-1"}
+                                className={"col-12 col-lg-2 form-control ml-1 ml-lg-0 mr-1"}
                                 id={"vp-property"}
                                 value={this.state.property}
                                 placeholder={"Property"}
                                 onChange={this.updateProperty}/>
                             <input
-                                className={"col-12 col-lg-9 form-control"}
+                                className={"col-12 col-lg-9 ml-1 ml-lg-0 form-control ml-1 ml-lg-0 mr-1"}
                                 id={"vp-propertyValue"}
                                 value={this.state.propertyValue}
                                 placeholder={"Property Value"}

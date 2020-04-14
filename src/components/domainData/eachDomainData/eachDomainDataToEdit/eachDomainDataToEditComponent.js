@@ -13,10 +13,10 @@ class eachDomainDataToEditComponent extends Component {
                     <div
                         className={"col-12 d-flex justify-content-end"}>
                         <Link className={"btn btn-success"}
-                                onClick={() => this.props.saveDomainDataChanges(
-                                    this.props.params.userNUId,
-                                    this.props.params.domain,
-                                    this.props.domainDataToEdit)}
+                              onClick={() => this.props.saveDomainDataChanges(
+                                  this.props.params.userNUId,
+                                  this.props.params.domain,
+                                  this.props.domainDataToEdit)}
                               to={`/wam/nuids/${this.props.params.userNUId}/domains/${this.props.params.domain}`}>
                             <i className={"fas fa-save mr-1"}/>
                             Save
@@ -34,8 +34,9 @@ class eachDomainDataToEditComponent extends Component {
                         <Link
                             className={"btn btn-warning ml-2"}
                             onClick={() =>
-                                this.props.updateDomainDataEdit(
-                                    "", null)
+                                this.props.reloadDomainDataToEdit(
+                                    this.props.params.userNUId,
+                                    this.props.params.domain)
                             }
                             to={`/wam/nuids/${this.props.params.userNUId}/domains/${this.props.params.domain}`}>
                             <i className={"fas fa-times mr-1"}/>
@@ -89,24 +90,21 @@ const dispatchMapper = (dispatch) => {
                             domainDataActions.updateDomainDataEditId(""));
                         dispatch(
                             domainDataActions.updateDomainDataToEdit(null));
-                        /*domainDataService.findAllDomainSpecificData(userNUId,
-                            domain).then(
-                            domainData => {
-                                if (!domainData.hasOwnProperty(
-                                    "errorMessage")) {
-                                    dispatch(domainDataActions.getDomainData(
-                                        domainData));
-                                }
-                            })*/
-                        dispatch(domainDataActions.updateDomainSpecificDataAfterDelete(domainId));
+                        dispatch(
+                            domainDataActions.updateDomainSpecificDataAfterDelete(
+                                domainId));
                     }
                 });
         },
-        reloadDomainDataToEdit: (domainDataToEdit) => {
-            dispatch(
-                domainDataActions.updateDomainDataEditId(domainDataToEdit._id));
-            dispatch(
-                domainDataActions.updateDomainDataToEdit(domainDataToEdit));
+        reloadDomainDataToEdit: (userNUId, domain) => {
+            dispatch(domainDataActions.updateDomainDataEditId(""));
+            dispatch(domainDataActions.updateDomainDataToEdit(null));
+            domainDataService.findAllDomainSpecificData(userNUId, domain).then(
+                domainData => {
+                    if (!domainData.hasOwnProperty("errorMessage")) {
+                        dispatch(domainDataActions.getDomainData(domainData));
+                    }
+                })
         }
     }
 };
