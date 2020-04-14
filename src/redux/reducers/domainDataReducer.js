@@ -1,13 +1,15 @@
 import {
     GET_DOMAIN_DATA,
     UPDATE_DOMAIN_DATA_INDEX,
-    UPDATE_DOMAIN_DATA_To_EDIT
+    UPDATE_DOMAIN_DATA_TO_EDIT,
+    ADD_NEW_PROPERTY, UPDATE_DOMAIN_DATA_ARRAY_AFTER_DELETE
 } from '../actions/domainDataActions'
 
 const initialState = {
     domainSpecificData: [],
-    domainDataIndexToEdit: -1,
-    domainDataToEdit: {}
+    domainDataIdToEdit: "",
+    domainDataToEdit: {},
+    domainDataNewAddedFields: {}
 };
 
 const domainsReducer = (state = initialState, action) => {
@@ -21,13 +23,26 @@ const domainsReducer = (state = initialState, action) => {
         case UPDATE_DOMAIN_DATA_INDEX:
             return {
                 ...state,
-                domainDataIndexToEdit: action.indexToEdit
+                domainDataIdToEdit: action.domainDataToEditId
             };
 
-        case UPDATE_DOMAIN_DATA_To_EDIT:
+        case UPDATE_DOMAIN_DATA_TO_EDIT:
             return {
                 ...state,
                 domainDataToEdit: action.domainDataToEdit
+            };
+
+        case ADD_NEW_PROPERTY:
+            return {
+                ...state,
+                domainDataToEdit: action.newDomainDataObject
+            };
+
+        case UPDATE_DOMAIN_DATA_ARRAY_AFTER_DELETE:
+            let newDomainDataArray = state.domainSpecificData.filter(eachDomainData => eachDomainData._id !== action.domainIdToDelete);
+            return {
+                ...state,
+                domainSpecificData: newDomainDataArray
             };
 
         default:

@@ -1,39 +1,50 @@
 import React, {Component} from 'react';
 import {connect} from "react-redux";
+import EachDomainDataToEdit from "./eachDomainDataToEdit";
+import EachDomainDataToDisplay from "./eachDomainDataToDisplay";
 import domainDataActions from "../../../redux/actions/domainDataActions";
-import EachDomainDataDisplay from "../eachDomainData/eachDomainDataDisplay";
+import domainDataService from "../../../services/domainDataService";
 
 class eachDomainDataComponent extends Component {
+    componentDidMount(): void {
+        if (typeof (this.props.params.domainId) !== "undefined") {
+            domainDataService.findSpecificDomainData(
+                this.props.params.userNUId,
+                this.props.params.domain,
+                this.props.params.domainId).then(specificDomainData => {
+                if (!specificDomainData.hasOwnProperty("errorMessage")) {
+                    this.props.updateDomainDataEdit(
+                        this.props.params.domainId, specificDomainData);
+                }
+            })
+        }
+    }
+
     render() {
         return (
             this.props.eachDomainData
             &&
             <div className={"container-fluid"}>
-                {/*<div className={"col-12 list-group-item"}>*/}
                 <div
-                    className={`col-12 list-group-item ${this.props.domainDataIndexToEdit
-                    === this.props.index ? "bg-secondary text-white"
+                    className={`col-12 list-group-item ${this.props.domainDataIdToEdit
+                    === this.props.eachDomainData._id ? "border border-info"
                         : ""}`}>
-                    <div className={"row"}>
-                        <div className={"col-12 col-md-11 text-truncate"}>
-                            <EachDomainDataDisplay
-                                eachDomainData={this.props.eachDomainData} />
-                        </div>
-                        <div
-                            className={"col-12 col-md-1 d-flex justify-content-center"}>
-                            <div>
-                                <button className={"btn btn-warning"}
-                                        onClick={() =>
-                                            this.props.updateDomainDataEdit(
-                                                this.props.index,
-                                                this.props.eachDomainData
-                                            )
-                                        }>
-                                    <i className={"fa fa-edit"}></i>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
+                    {
+                        this.props.domainDataIdToEdit
+                        !== this.props.eachDomainData._id
+                        &&
+                        <EachDomainDataToDisplay
+                            params={this.props.params}
+                            eachDomainData={this.props.eachDomainData}/>
+                    }
+                    {
+                        this.props.domainDataIdToEdit
+                        === this.props.eachDomainData._id
+                        &&
+                        <EachDomainDataToEdit
+                            params={this.props.params}
+                            eachDomainData={this.props.eachDomainData}/>
+                    }
                 </div>
             </div>
         )
@@ -42,17 +53,16 @@ class eachDomainDataComponent extends Component {
 
 const stateMapper = (state) => {
     return {
-        domainDataIndexToEdit: state.domainData.domainDataIndexToEdit,
-        domainDataToEdit: state.domainData.domainDataToEdit
+        domainDataIdToEdit: state.domainData.domainDataIdToEdit
     }
 };
 
 const dispatchMapper = (dispatch) => {
     return {
-        updateDomainDataEdit: (index, domainDataToEdit) => {
-            dispatch(domainDataActions.updateDomainDataEditIndex(index));
+        updateDomainDataEdit: (domainId, specificDomainData) => {
+            dispatch(domainDataActions.updateDomainDataEditId(domainId));
             dispatch(
-                domainDataActions.updateDomainDataToEdit(domainDataToEdit));
+                domainDataActions.updateDomainDataToEdit(specificDomainData));
         }
     }
 };

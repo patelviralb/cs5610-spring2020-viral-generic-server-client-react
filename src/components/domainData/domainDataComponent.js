@@ -9,7 +9,7 @@ class domainDataComponent extends Component {
     componentDidMount() {
         this.props.findAllDomainData(this.props.match.params.userNUId,
             this.props.match.params.domain);
-        this.props.resetDomainDataSelectedIndex();
+        this.props.resetDomainDataSelectedId();
     }
 
     render() {
@@ -26,7 +26,7 @@ class domainDataComponent extends Component {
                                         `/wam/nuids/${this.props.match.params.userNUId}`)
                                 }
                         >
-                            <i className="fas fa-arrow-left"></i> Back
+                            <i className="fas fa-arrow-left"/> Back
                         </button>
                     </div>
                 </div>
@@ -44,12 +44,8 @@ class domainDataComponent extends Component {
                                 this.props.domainSpecificData.map(
                                     (eachDomainData, index) =>
                                         <EachDomainData key={index}
+                                                        params={this.props.match.params}
                                                         eachDomainData={eachDomainData}
-                                                        userNUId={this.props.match.params.userNUId}
-                                                        index={index}
-                                            /*isHighlightRequired={this.state.isHighlightRequired}
-                                            currentHighlightedIndex={this.state.currentHighlightedIndex}
-                                            toggleHighlight={this.toggleHighlight}*/
                                         />
                                 )
                             }
@@ -72,7 +68,8 @@ class domainDataComponent extends Component {
 
 const stateMapper = (state) => {
     return {
-        domainSpecificData: state.domainData.domainSpecificData
+        domainSpecificData: state.domainData.domainSpecificData,
+        domainDataIdToEdit: state.domainData.domainDataIdToEdit
     }
 };
 
@@ -86,8 +83,10 @@ const dispatchMapper = (dispatch) => {
                     }
                 })
         },
-        resetDomainDataSelectedIndex: () => {
-            dispatch(domainDataActions.updateDomainDataEditIndex(-1));
+        resetDomainDataSelectedId: () => {
+            dispatch(domainDataActions.updateDomainDataEditId(""));
+            dispatch(
+                domainDataActions.updateDomainDataToEdit(null));
         }
     }
 };
