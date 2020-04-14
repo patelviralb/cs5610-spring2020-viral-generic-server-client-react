@@ -63,6 +63,15 @@ class eachDomainDataEditComponent extends Component {
         }
     };
 
+    editExistingPropertyValue = (event, domainId, domain, propertyKey) => {
+        let newDomainDataObject = this.state.dataToEdit;
+        newDomainDataObject[propertyKey] = event.target.value;
+        this.setState({
+            dataToEdit: newDomainDataObject
+        });
+        this.props.addNewProperty(domainId, domain, newDomainDataObject);
+    };
+
     render() {
         return (
             <div>
@@ -76,23 +85,32 @@ class eachDomainDataEditComponent extends Component {
                                 let property = key + "";
                                 if (property.charAt(0) !== "_") {
                                     return (
-                                        <div className={"row mb-2"} key={key}>
+                                        <div
+                                            className={"row mt-2 justify-content-center"}
+                                            key={key}>
                                             <input
-                                                className={"col-12 col-lg-2 form-control"}
-                                                value={key}/>
+                                                className={"col-12 col-lg-2 form-control mr-1"}
+                                                value={key} disabled/>
                                             <input
-                                                className={"col-12 col-lg-10 form-control"}
+                                                className={"col-12 col-lg-9 form-control"}
+                                                onChange={(event) => this.editExistingPropertyValue(
+                                                    event,
+                                                    this.state.dataToEdit._id,
+                                                    this.props.params.domain,
+                                                    key)}
                                                 value={this.state.dataToEdit[key]}/>
                                         </div>
                                     )
                                 }
                                 return (
-                                    <div className={"row mb-2"} key={key}>
+                                    <div
+                                        className={"row mt-2 justify-content-center"}
+                                        key={key}>
                                         <input
-                                            className={"col-12 col-lg-2 form-control"}
+                                            className={"col-12 col-lg-2 form-control mr-1"}
                                             value={key} disabled/>
                                         <input
-                                            className={"col-12 col-lg-10 form-control"}
+                                            className={"col-12 col-lg-9 form-control"}
                                             value={this.state.dataToEdit[key]}
                                             disabled/>
                                     </div>
