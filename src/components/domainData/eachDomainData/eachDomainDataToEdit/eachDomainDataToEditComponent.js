@@ -19,14 +19,15 @@ class eachDomainDataToEditComponent extends Component {
                 <div className={"row mb-2"}>
                     <div
                         className={"col-12 d-flex justify-content-end"}>
-                        <button className={"btn btn-success"}
+                        <Link className={"btn btn-success"}
                                 onClick={() => this.props.saveDomainDataChanges(
                                     this.props.params.userNUId,
                                     this.props.params.domain,
-                                    this.props.domainDataToEdit)}>
+                                    this.props.domainDataToEdit)}
+                              to={`/wam/nuids/${this.props.params.userNUId}/domains/${this.props.params.domain}`}>
                             <i className={"fas fa-save mr-1"}/>
                             Save
-                        </button>
+                        </Link>
                         <Link
                             className={"btn btn-danger ml-2"}
                             onClick={() => this.deleteDomainData(
