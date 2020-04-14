@@ -92,6 +92,11 @@ const dispatchMapper = (dispatch) => {
                             })
                     }
                 });
+        },
+        reloadDomainDataToEdit: (index, domainDataToEdit) => {
+            dispatch(domainDataActions.updateDomainDataEditIndex(index));
+            dispatch(
+                domainDataActions.updateDomainDataToEdit(domainDataToEdit));
         }
     }
 };
