@@ -3,7 +3,7 @@ import domainDataActions from "../../../../redux/actions/domainDataActions";
 import {connect} from "react-redux";
 import EachDomainDataEditComponent from "../eachDomainDataEdit";
 import domainDataService from "../../../../services/domainDataService";
-import {Link, Redirect} from "react-router-dom";
+import {Link} from "react-router-dom";
 
 class eachDomainDataToEditComponent extends Component {
     render() {
