@@ -11,9 +11,19 @@ class eachDomainDataEditComponent extends Component {
     };
 
     componentDidMount(): void {
-        this.setState({
-            dataToEdit: this.props.domainDataToEdit
-        })
+        if(typeof(this.props.domainDataToEdit) !== "undefined") {
+            this.setState({
+                dataToEdit: this.props.domainDataToEdit
+            })
+        }
+    }
+    componentDidUpdate(prevProps: Readonly<P>, prevState: Readonly<S>,
+        snapshot: SS): void {
+        if(prevProps.domainDataToEdit !== this.props.domainDataToEdit) {
+            this.setState({
+                dataToEdit: this.props.domainDataToEdit
+            })
+        }
     }
 
     updateProperty = (event) => {
@@ -75,7 +85,7 @@ class eachDomainDataEditComponent extends Component {
     removeField = (propertyKey) => {
         let newDomainDataObject = this.state.dataToEdit;
         delete newDomainDataObject[propertyKey];
-        console.log('DEBUG: Delete Field',newDomainDataObject);
+        console.log('DEBUG: Delete Field', newDomainDataObject);
         this.setState({
             dataToEdit: newDomainDataObject
         });
@@ -85,7 +95,7 @@ class eachDomainDataEditComponent extends Component {
         return (
             <div>
                 {
-                    this.props.domainDataToEdit
+                    this.state.dataToEdit
                     &&
                     Object.keys(this.state.dataToEdit).map(
                         (key, index) => {
@@ -139,6 +149,13 @@ class eachDomainDataEditComponent extends Component {
                             return null;
                         }
                     )
+                }
+                {
+                    !this.props.domainDataToEdit
+                    &&
+                    <div>
+                        Error
+                    </div>
                 }
                 <div className={"row mt-3"}>
                     <div
