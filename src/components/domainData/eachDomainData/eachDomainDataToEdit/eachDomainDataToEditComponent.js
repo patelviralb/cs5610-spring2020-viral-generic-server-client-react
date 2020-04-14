@@ -10,8 +10,6 @@ class eachDomainDataToEditComponent extends Component {
     deleteDomainData = (userNUId, domain, domainId) => {
         this.props.deleteDomainData(this.props.userNUId,
             this.props.params.domain, this.props.domainDataToEdit._id);
-        /*this.props.history.push(`/wam/nuids/${userNUId}/domains/${domain}`);*/
-        /*return <Redirect to={`/wam/nuids/${userNUId}/domains/${domain}`}/>*/
         console.log('DEBUG: Delete Finish');
     };
 
@@ -23,7 +21,7 @@ class eachDomainDataToEditComponent extends Component {
                         className={"col-12 d-flex justify-content-end"}>
                         <button className={"btn btn-success"}
                                 onClick={() => this.props.saveDomainDataChanges(
-                                    this.props.userNUId,
+                                    this.props.params.userNUId,
                                     this.props.params.domain,
                                     this.props.domainDataToEdit)}>
                             <i className={"fas fa-save mr-1"}/>
@@ -39,15 +37,16 @@ class eachDomainDataToEditComponent extends Component {
                             <i className={"fas fa-trash-alt mr-1"}/>
                             Delete
                         </Link>
-                        <button
+                        <Link
                             className={"btn btn-warning ml-2"}
                             onClick={() =>
                                 this.props.updateDomainDataEdit(
-                                    -1, null)
-                            }>
+                                    "", null)
+                            }
+                            to={`/wam/nuids/${this.props.params.userNUId}/domains/${this.props.params.domain}`}>
                             <i className={"fas fa-times mr-1"}/>
                             Cancel
-                        </button>
+                        </Link>
                     </div>
                 </div>
                 <div className={"row"}>
