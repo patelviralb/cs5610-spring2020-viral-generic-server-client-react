@@ -9,8 +9,8 @@ class eachDomainDataToEditComponent extends Component {
 
     deleteDomainData = (userNUId, domain, domainId) => {
         this.props.deleteDomainData(this.props.userNUId,
-            this.props.params.domain, this.props.domainDataToEdit._id);
-        console.log('DEBUG: Delete Finish');
+            this.props.params.domain, this.props.params.domainId);
+        return <Redirect to={`/wam/nuids/${this.props.params.userNUId}/domains/${this.props.params.domain}`}/>
     };
 
     render() {
@@ -96,7 +96,7 @@ const dispatchMapper = (dispatch) => {
                             domainDataActions.updateDomainDataEditId(""));
                         dispatch(
                             domainDataActions.updateDomainDataToEdit(null));
-                        domainDataService.findAllDomainSpecificData(userNUId,
+                        /*domainDataService.findAllDomainSpecificData(userNUId,
                             domain).then(
                             domainData => {
                                 if (!domainData.hasOwnProperty(
@@ -104,7 +104,8 @@ const dispatchMapper = (dispatch) => {
                                     dispatch(domainDataActions.getDomainData(
                                         domainData));
                                 }
-                            })
+                            })*/
+                        dispatch(domainDataActions.updateDomainSpecificDataAfterDelete(domainId));
                     }
                 });
         },

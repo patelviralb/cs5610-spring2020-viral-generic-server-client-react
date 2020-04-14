@@ -12,6 +12,19 @@ class domainDataComponent extends Component {
         this.props.resetDomainDataSelectedId();
     }
 
+    componentDidUpdate(prevProps: Readonly<P>, prevState: Readonly<S>,
+        snapshot: SS): void {
+        console.log('DEBUG: Previous Props',prevProps);
+        /*if (prevProps !== this.props) {
+            console.log('DEBUG: On Update', prevProps.match);
+            console.log('DEBUG: On Update', this.props.match);
+            console.log('DEBUG: On Update', this.props.match === prevProps.match);
+            this.props.findAllDomainData(this.props.match.params.userNUId,
+                this.props.match.params.domain);
+            this.props.resetDomainDataSelectedId();
+        }*/
+    }
+
     render() {
         return (
             <div>

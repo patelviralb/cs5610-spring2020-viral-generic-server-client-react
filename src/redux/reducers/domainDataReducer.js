@@ -2,7 +2,7 @@ import {
     GET_DOMAIN_DATA,
     UPDATE_DOMAIN_DATA_INDEX,
     UPDATE_DOMAIN_DATA_TO_EDIT,
-    ADD_NEW_PROPERTY
+    ADD_NEW_PROPERTY, UPDATE_DOMAIN_DATA_ARRAY_AFTER_DELETE
 } from '../actions/domainDataActions'
 
 const initialState = {
@@ -36,6 +36,13 @@ const domainsReducer = (state = initialState, action) => {
             return {
                 ...state,
                 domainDataToEdit: action.newDomainDataObject
+            };
+
+        case UPDATE_DOMAIN_DATA_ARRAY_AFTER_DELETE:
+            let newDomainDataArray = state.domainSpecificData.filter(eachDomainData => eachDomainData._id !== action.domainIdToDelete);
+            return {
+                ...state,
+                domainSpecificData: newDomainDataArray
             };
 
         default:
