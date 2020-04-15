@@ -1,4 +1,4 @@
-const API_URL = "http://wbdv-generic-server.herokuapp.com/shh/nuids";
+const API_URL = "https://wbdv-generic-server.herokuapp.com/shh/nuids";
 let errorMessage = {
     responseCode: null,
     responseData: {}
