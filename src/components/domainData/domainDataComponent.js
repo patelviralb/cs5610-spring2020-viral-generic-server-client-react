@@ -99,11 +99,9 @@ const dispatchMapper = (dispatch) => {
                 domainDataActions.updateDomainDataToEdit(null));
         },
         addNewDomainData: (userNUId, domain) => {
-            console.log('DEBUG: Add new Domain Data',userNUId,domain);
             domainsService.addNewDomain(userNUId, domain).then(
                 domainAddResponse => {
                     if (!domainAddResponse.hasOwnProperty("errorMessage")) {
-                        console.log('DEBUG: domainAddResponse',domainAddResponse);
                         dispatch(domainDataActions.addNewDomainSpecificData(domainAddResponse));
                     }
                 });
