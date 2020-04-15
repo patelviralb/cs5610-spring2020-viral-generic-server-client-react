@@ -9,7 +9,7 @@ class eachDomainComponent extends Component {
             typeof this.props.eachDomain === 'string'
             &&
             <div
-                className={"col-12"}>
+                className={"col-12 col-md-6 col-lg-3 text-center"}>
                 <Link className={`text-decoration-none ${parseInt(
                     this.props.selectedDomainIndex) === this.props.index
                     ? "text-white" : ""}`}

@@ -6,10 +6,30 @@ import Navbar from "../navbar";
 import EachDomain from './eachDomain'
 
 class DomainsComponent extends Component {
+
+    state = {
+        newDomainToAdd: ""
+    };
+
     componentDidMount() {
         this.props.findAllDomainsForUser(this.props.match.params.userNUId);
         this.props.resetDomainSelectedIndex();
     }
+
+    updateNewDomainName = (event) => {
+        this.setState({
+            newDomainToAdd: event.target.value
+        });
+    };
+
+    addNewDomain = () => {
+        if(this.state.newDomainToAdd.trim() !== "") {
+            this.props.addNewDomain(this.props.match.params.userNUId, this.state.newDomainToAdd);
+            this.setState({
+                newDomainToAdd: ""
+            });
+        }
+    };
 
     render() {
         return (
@@ -30,9 +50,25 @@ class DomainsComponent extends Component {
                     </div>
                 </div>
                 <div className={"container-fluid mb-5"}>
-                    <div className={"d-flex justify-content-center mb-5"}>
+                    <div className={"d-flex justify-content-center mb-2"}>
                         <h2>Domains
                             for {this.props.match.params.userNUId}</h2>
+                    </div>
+                    <div
+                        className={"container d-flex justify-content-center mb-5"}>
+                        <input type={"text"} className={"form-control"}
+                               value={this.state.newDomainToAdd}
+                               placeholder={"New Domain Name to Add"}
+                               onChange={this.updateNewDomainName}
+                               onKeyPress={event => {
+                                   if (event.key === 'Enter') {
+                                       this.addNewDomain();
+                                   }
+                               }}/>
+                        <button className={"btn btn-primary ml-2"}
+                                onClick={this.addNewDomain}>
+                            <i className={"fa fa-plus"}/>
+                        </button>
                     </div>
                     <ul className={"list-group"}>
                         <div className={"row"}>
@@ -81,6 +117,13 @@ const dispatchMapper = (dispatch) => {
         },
         resetDomainSelectedIndex: () => {
             dispatch(domainsActions.updateSelectedDomainIndex(-1));
+        },
+        addNewDomain: (userNUId, domainName) => {
+            domainsService.addNewDomain(userNUId, domainName).then(domainAddResponse => {
+                if (!domainAddResponse.hasOwnProperty("errorMessage")) {
+                    dispatch(domainsActions.addNewDomain(domainName));
+                }
+            })
         }
     }
 };
