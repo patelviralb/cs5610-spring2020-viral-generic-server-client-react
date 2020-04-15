@@ -1,8 +1,10 @@
 import {
+    ADD_NEW_DOMAIN_SPECIFIC_DATA,
+    ADD_NEW_PROPERTY,
     GET_DOMAIN_DATA,
+    UPDATE_DOMAIN_DATA_ARRAY_AFTER_DELETE,
     UPDATE_DOMAIN_DATA_INDEX,
-    UPDATE_DOMAIN_DATA_TO_EDIT,
-    ADD_NEW_PROPERTY, UPDATE_DOMAIN_DATA_ARRAY_AFTER_DELETE
+    UPDATE_DOMAIN_DATA_TO_EDIT
 } from '../actions/domainDataActions'
 
 const initialState = {
@@ -39,10 +41,23 @@ const domainsReducer = (state = initialState, action) => {
             };
 
         case UPDATE_DOMAIN_DATA_ARRAY_AFTER_DELETE:
-            let newDomainDataArray = state.domainSpecificData.filter(eachDomainData => eachDomainData._id !== action.domainIdToDelete);
+            let newDomainDataArray = state.domainSpecificData.filter(
+                eachDomainData => eachDomainData._id
+                    !== action.domainIdToDelete);
             return {
                 ...state,
                 domainSpecificData: newDomainDataArray
+            };
+
+        case ADD_NEW_DOMAIN_SPECIFIC_DATA:
+            return {
+                ...state,
+                domainSpecificData: [
+                    action.newDomainData,
+                    ...state.domainSpecificData
+                ],
+                domainDataIdToEdit: action.newDomainData._id,
+                domainDataToEdit: action.newDomainData
             };
 
         default:
