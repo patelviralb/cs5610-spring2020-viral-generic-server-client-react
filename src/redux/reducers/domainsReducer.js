@@ -24,7 +24,7 @@ const domainsReducer = (state = initialState, action) => {
             };
 
         case ADD_NEW_DOMAIN:
-            let newDomainIndex = state.uniqueDomains.findIndex(
+            const newDomainIndex = state.uniqueDomains.findIndex(
                 eachDomain => eachDomain === action.newDomain);
             let newSelectedIndex;
             let newDomainsArray;
