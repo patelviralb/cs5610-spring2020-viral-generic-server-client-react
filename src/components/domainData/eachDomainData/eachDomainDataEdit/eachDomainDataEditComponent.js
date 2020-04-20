@@ -11,15 +11,16 @@ class eachDomainDataEditComponent extends Component {
     };
 
     componentDidMount(): void {
-        if(typeof(this.props.domainDataToEdit) !== "undefined") {
+        if (typeof (this.props.domainDataToEdit) !== "undefined") {
             this.setState({
                 dataToEdit: this.props.domainDataToEdit
             })
         }
     }
+
     componentDidUpdate(prevProps: Readonly<P>, prevState: Readonly<S>,
         snapshot: SS): void {
-        if(prevProps.domainDataToEdit !== this.props.domainDataToEdit) {
+        if (prevProps.domainDataToEdit !== this.props.domainDataToEdit) {
             this.setState({
                 dataToEdit: this.props.domainDataToEdit
             })
@@ -30,6 +31,8 @@ class eachDomainDataEditComponent extends Component {
         if (this.state.property === "" && event.target.value.trim() !== ""
             && document.getElementById('vp-property').classList.contains(
                 'alert-danger')) {
+            document.getElementById('vp-property').classList.remove(
+                'alert');
             document.getElementById('vp-property').classList.remove(
                 'alert-danger');
         }
@@ -43,6 +46,8 @@ class eachDomainDataEditComponent extends Component {
             && document.getElementById('vp-propertyValue').classList.contains(
                 'alert-danger')) {
             document.getElementById('vp-propertyValue').classList.remove(
+                'alert');
+            document.getElementById('vp-propertyValue').classList.remove(
                 'alert-danger');
         }
         this.setState({
@@ -53,13 +58,29 @@ class eachDomainDataEditComponent extends Component {
     addNewPropertyField = (domainId, domain, newProperty, newPropertyValue) => {
         if (newProperty.trim() !== "" && newPropertyValue.trim() !== "") {
             let newDomainDataObject = this.state.dataToEdit;
-            newDomainDataObject[newProperty.trim()] = newPropertyValue.trim();
+
+            if (newProperty.trim().charAt(0) === '_') {
+                if (newDomainDataObject.hasOwnProperty(newProperty.trim())) {
+                    document.getElementById('vp-error-alert').classList.remove(
+                        'd-none');
+                    setTimeout(
+                        () => {
+                            document.getElementById(
+                                'vp-error-alert').classList.add('d-none');
+                        },
+                        2000
+                    );
+                }
+            } else {
+                newDomainDataObject[newProperty.trim()] = newPropertyValue.trim();
+                this.props.addNewProperty(domainId, domain,
+                    newDomainDataObject);
+            }
             this.setState({
                 dataToEdit: newDomainDataObject,
                 property: "",
                 propertyValue: ""
             });
-            this.props.addNewProperty(domainId, domain, newDomainDataObject);
         }
         if (newProperty.trim() === "") {
             document.getElementById('vp-property').classList.add('alert');
@@ -82,17 +103,16 @@ class eachDomainDataEditComponent extends Component {
         this.props.addNewProperty(domainId, domain, newDomainDataObject);
     };
 
-    removeField = (propertyKey) => {
-        let newDomainDataObject = this.state.dataToEdit;
-        delete newDomainDataObject[propertyKey];
-        this.setState({
-            dataToEdit: newDomainDataObject
-        });
-    };
-
     render() {
         return (
             <div>
+                <div id={'vp-error-alert'}
+                     className={'alert alert-danger d-none'}>
+                    <label>
+                        <i className="fas fa-exclamation-triangle"/>
+                        <strong> Cannot edit the field</strong>
+                    </label>
+                </div>
                 {
                     this.state.dataToEdit
                     &&
@@ -134,7 +154,21 @@ class eachDomainDataEditComponent extends Component {
                                     </div>
                                 )
                             }
-                            return null;
+                            return (
+                                <div
+                                    className={"row mt-2 justify-content-center"}
+                                    key={key}>
+                                    <input
+                                        className={"col-12 col-lg-2 form-control ml-2 ml-lg-0 mr-1"}
+                                        value={key} disabled/>
+                                    <input
+                                        className={"col-12 col-lg-9 form-control ml-2 ml-lg-0 mr-1"}
+                                        value={'['
+                                        + typeof (this.state.dataToEdit[key])
+                                        + ']'}
+                                        disabled/>
+                                </div>
+                            )
                         }
                     )
                 }
